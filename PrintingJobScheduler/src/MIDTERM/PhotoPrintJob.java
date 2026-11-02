@@ -9,6 +9,7 @@ public class PhotoPrintJob extends printJob {
     }
 
     // Method specific to photo printing
+    @Override
     public String getPrintType() {
         return "Photo";
     }

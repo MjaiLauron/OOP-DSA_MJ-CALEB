@@ -27,6 +27,11 @@ public class printJob {
     public int getCopies() {
         return copies;
     }
+    
+    // Default print type
+    public String getPrintType() {
+        return "General";
+    }
 
     // Setter methods
     public void setJobID(String jobID) {

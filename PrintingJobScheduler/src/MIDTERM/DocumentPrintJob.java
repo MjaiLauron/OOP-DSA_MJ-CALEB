@@ -9,6 +9,7 @@ public class DocumentPrintJob extends printJob {
     }
 
     // Method specific to document printing
+    @Override
     public String getPrintType() {
         return "Document";
     }
