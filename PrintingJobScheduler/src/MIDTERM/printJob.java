@@ -28,6 +28,11 @@ public class printJob {
     this.copies = copies;
 }
 
+        // Constructor for a print job with one copy by default
+    public printJob(String jobID, String customerName) {
+        this(jobID, customerName, 1);
+    }
+    
     // Getter methods
     public String getJobID() {
         return jobID;
