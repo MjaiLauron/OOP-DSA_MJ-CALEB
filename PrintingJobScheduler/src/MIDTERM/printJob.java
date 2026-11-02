@@ -48,11 +48,19 @@ public class printJob {
 
     // Setter methods
     public void setJobID(String jobID) {
-        this.jobID = jobID;
+    if (jobID == null || jobID.trim().isEmpty()) {
+        throw new IllegalArgumentException("Job ID cannot be empty.");
+    }
+
+        this.jobID = jobID.trim();
     }
 
     public void setCustomerName(String customerName) {
-        this.customerName = customerName;
+    if (customerName == null || customerName.trim().isEmpty()) {
+        throw new IllegalArgumentException("Customer name cannot be empty.");
+    }
+
+        this.customerName = customerName.trim();
     }
 
     public void setCopies(int copies) {
