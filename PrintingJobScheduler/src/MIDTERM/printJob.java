@@ -56,8 +56,11 @@ public class printJob {
     }
 
     public void setCopies(int copies) {
-        if (copies > 0) {
-            this.copies = copies;
-        }
+    if (copies <= 0) {
+        throw new IllegalArgumentException(
+            "Copies must be greater than zero."
+        );
     }
-}
+
+    this.copies = copies;
+    }
