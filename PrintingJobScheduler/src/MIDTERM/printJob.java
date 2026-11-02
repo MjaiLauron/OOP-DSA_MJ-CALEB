@@ -64,3 +64,12 @@ public class printJob {
 
     this.copies = copies;
     }
+    
+    // Returns a complete description of the print job
+public String getJobDescription() {
+    return "Job ID: " + jobID
+            + "\nCustomer Name: " + customerName
+            + "\nPrint Type: " + getPrintType()
+            + "\nCopies: " + copies;
+}
+}
