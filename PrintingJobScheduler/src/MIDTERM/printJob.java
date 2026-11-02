@@ -66,10 +66,20 @@ public class printJob {
     }
     
     // Returns a complete description of the print job
-public String getJobDescription() {
-    return "Job ID: " + jobID
+    public String getJobDescription() {
+        return "Job ID: " + jobID
             + "\nCustomer Name: " + customerName
             + "\nPrint Type: " + getPrintType()
             + "\nCopies: " + copies;
-}
+        }
+    // Returns the category of the print job
+    public String getJobCategory() {
+        if (getPrintType().equals("Document")) {
+            return "Paper Document Printing";
+        } else if (getPrintType().equals("Photo")) {
+            return "Photo Printing";
+        } else {
+            return "General Printing";
+        }
+    }
 }
