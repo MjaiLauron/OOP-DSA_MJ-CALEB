@@ -8,12 +8,25 @@ public class printJob {
     private String customerName;
     private int copies;
 
-    // Constructor
-    public printJob(String jobID, String customerName, int copies) {
-        this.jobID = jobID;
-        this.customerName = customerName;
-        this.copies = copies;
+    // Constructor with input validation
+        public printJob(String jobID, String customerName, int copies) {
+
+    if (jobID == null || jobID.trim().isEmpty()) {
+        throw new IllegalArgumentException("Job ID cannot be empty.");
     }
+
+    if (customerName == null || customerName.trim().isEmpty()) {
+        throw new IllegalArgumentException("Customer name cannot be empty.");
+    }
+
+    if (copies <= 0) {
+        throw new IllegalArgumentException("Copies must be greater than zero.");
+    }
+
+    this.jobID = jobID.trim();
+    this.customerName = customerName.trim();
+    this.copies = copies;
+}
 
     // Getter methods
     public String getJobID() {
