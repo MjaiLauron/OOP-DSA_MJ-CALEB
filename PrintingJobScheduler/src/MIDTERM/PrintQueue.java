@@ -124,4 +124,18 @@ public class PrintQueue {
     // Return null if no matching job is found
         return null;
     }
+    // Removes all waiting print jobs from the queue
+    public void clearQueue() {
+
+    // Remove all stored jobs from the array
+    for (int i = 0; i < jobs.length; i++) {
+        jobs[i] = null;
+    }
+
+    // Reset the queue positions and count
+    front = 0;
+    rear = -1;
+    count = 0;
+    }
+    
 }
