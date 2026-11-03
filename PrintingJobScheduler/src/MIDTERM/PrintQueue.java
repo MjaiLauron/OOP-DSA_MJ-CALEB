@@ -66,4 +66,9 @@ public class PrintQueue {
 
         return processedJob;
     }
+    
+    // Returns the number of waiting print jobs
+    public int getJobCount() {
+        return count;
+    }
 }
