@@ -20,7 +20,8 @@ public class PhotoPrintJob extends printJob {
                 + "\nCategory: " + getJobCategory()
                 + "\nPrinting Purpose: Photo Printing";
     }
-    public double calculatePrintingCost() {
+    @Override
+    public double getPrintingCost() {
         return getCopies() * 5.00;
     }
 }

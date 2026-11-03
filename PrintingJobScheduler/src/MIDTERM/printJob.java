@@ -85,6 +85,19 @@ public class printJob {
             + "\nPrint Type: " + getPrintType()
             + "\nCopies: " + copies;
         }
+    
+    // Returns a summary of the printing cost
+    public String getPrintingCostSummary() {
+        return "Print Type: " + getPrintType()
+            + "\nNumber of Copies: " + getCopies()
+            + "\nTotal Cost: ₱" + String.format("%.2f", getPrintingCost());
+        }
+    
+    // Returns the printing cost (overridden by child classes)
+    public double getPrintingCost() {
+        return 0.00;
+    }
+    
     // Returns the category of the print job
     public String getJobCategory() {
         if (getPrintType().equals("Document")) {

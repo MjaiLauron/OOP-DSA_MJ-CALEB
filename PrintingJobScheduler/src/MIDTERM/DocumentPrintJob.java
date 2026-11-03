@@ -21,7 +21,8 @@ public class DocumentPrintJob extends printJob {
                 + "\nPrinting Purpose: Document Printing";
     }
     
-    public double calculatePrintingCost() {
+    @Override
+    public double getPrintingCost() {
         return getCopies() * 3.00;
     }
 }
