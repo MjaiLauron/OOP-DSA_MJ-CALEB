@@ -13,4 +13,11 @@ public class DocumentPrintJob extends printJob {
     public String getPrintType() {
         return "Document";
     }
+    
+    // Returns a description specific to document printing
+    public String getDocumentDescription() {
+        return getJobDescription()
+                + "\nCategory: " + getJobCategory()
+                + "\nPrinting Purpose: Document Printing";
+    }
 }
