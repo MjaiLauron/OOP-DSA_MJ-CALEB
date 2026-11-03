@@ -47,6 +47,11 @@ public class printJob {
         return copies >= 20;
     }
     
+    // Checks whether the print job has valid copy information
+    public boolean hasValidCopies() {
+        return copies > 0;
+    }
+    
     // Default print type
     public String getPrintType() {
         return "General";
