@@ -78,6 +78,12 @@ public class printJob {
     this.copies = copies;
     }
     
+    // Updates the number of copies and returns the updated cost
+    public double updateCopiesAndGetCost(int newCopies) {
+        setCopies(newCopies);
+        return getPrintingCost();
+    }
+    
     // Returns a complete description of the print job
     public String getJobDescription() {
         return "Job ID: " + jobID
@@ -111,7 +117,8 @@ public class printJob {
     // Returns the print job information as a readable String
     @Override
     public String toString() {
-        return getJobDescription();
+        return getJobDescription()
+            + "\n" + getPrintingCostSummary();
     }
 
 }
