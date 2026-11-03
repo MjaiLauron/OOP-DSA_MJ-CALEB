@@ -13,4 +13,11 @@ public class PhotoPrintJob extends printJob {
     public String getPrintType() {
         return "Photo";
     }
+    
+    // Returns a description specific to photo printing
+    public String getPhotoDescription() {
+        return getJobDescription()
+                + "\nCategory: " + getJobCategory()
+                + "\nPrinting Purpose: Photo Printing";
+    }
 }
