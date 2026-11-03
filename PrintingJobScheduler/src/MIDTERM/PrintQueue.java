@@ -82,4 +82,18 @@ public class PrintQueue {
         return count == jobs.length;
     }
     
+    // Returns all waiting print jobs in FIFO order
+    public printJob[] getWaitingJobs() {
+
+    // Create an array based on the number of waiting jobs
+    printJob[] waitingJobs = new printJob[count];
+
+    // Copy the jobs starting from the front of the queue
+    for (int i = 0; i < count; i++) {
+        int index = (front + i) % jobs.length;
+        waitingJobs[i] = jobs[index];
+    }
+
+        return waitingJobs;
+    }
 }
