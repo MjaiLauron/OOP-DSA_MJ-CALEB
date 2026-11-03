@@ -42,8 +42,9 @@ public class printJob {
         return customerName;
     }
 
-    public int getCopies() {
-        return copies;
+    // Checks if the print job is a bulk order
+    public boolean isBulkOrder() {
+        return copies >= 20;
     }
     
     // Default print type
