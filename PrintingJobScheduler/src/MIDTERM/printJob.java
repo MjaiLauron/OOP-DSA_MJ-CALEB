@@ -95,4 +95,9 @@ public class printJob {
             return "General Printing";
         }
     }
+    // Returns the print job information as a readable String
+    @Override
+    public String toString() {
+        return getJobDescription();
+    }
 }
