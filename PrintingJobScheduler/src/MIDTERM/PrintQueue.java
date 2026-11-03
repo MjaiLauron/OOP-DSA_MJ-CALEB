@@ -76,4 +76,10 @@ public class PrintQueue {
     public boolean isEmpty() {
         return count == 0;
     }
+    
+    // Checks if the queue has reached its maximum capacity
+    public boolean isFull() {
+        return count == jobs.length;
+    }
+    
 }
