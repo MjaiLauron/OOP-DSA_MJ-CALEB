@@ -26,6 +26,10 @@ public class PrintQueue {
         if (job == null) {
             return false;
         }
+        // Check if the job ID already exists
+        if (searchJob(job.getJobID()) != null) {
+            return false;
+        }
 
         // Check if the queue is full
         if (count == jobs.length) {
