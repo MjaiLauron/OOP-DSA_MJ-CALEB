@@ -20,4 +20,8 @@ public class DocumentPrintJob extends printJob {
                 + "\nCategory: " + getJobCategory()
                 + "\nPrinting Purpose: Document Printing";
     }
+    
+    public double calculatePrintingCost() {
+        return getCopies() * 3.00;
+    }
 }
