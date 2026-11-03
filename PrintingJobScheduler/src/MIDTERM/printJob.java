@@ -100,4 +100,9 @@ public class printJob {
     public String toString() {
         return getJobDescription();
     }
+    // Calculates the printing cost based on the number of copies
+    public double calculatePrintingCost() {
+        double pricePerCopy = 2.00;
+        return copies * pricePerCopy;
+    }
 }
