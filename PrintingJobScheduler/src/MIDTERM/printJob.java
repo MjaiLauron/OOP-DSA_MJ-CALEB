@@ -41,6 +41,10 @@ public class printJob {
     public String getCustomerName() {
         return customerName;
     }
+    
+    public int getCopies() {
+        return copies;
+    }
 
     // Checks if the print job is a bulk order
     public boolean isBulkOrder() {
