@@ -71,4 +71,9 @@ public class PrintQueue {
     public int getJobCount() {
         return count;
     }
+    
+    // Checks if the queue has no waiting print jobs
+    public boolean isEmpty() {
+        return count == 0;
+    }
 }
