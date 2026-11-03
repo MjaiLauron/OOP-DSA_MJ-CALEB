@@ -96,4 +96,28 @@ public class PrintQueue {
 
         return waitingJobs;
     }
+    
+    // Searches for a print job using its job ID
+    public printJob searchJob(String jobID) {
+
+    // Check if the search input is empty
+    if (jobID == null || jobID.trim().isEmpty()) {
+        return null;
+    }
+
+    // Check each waiting job one by one
+    for (int i = 0; i < count; i++) {
+
+        // Get the current queue position
+        int index = (front + i) % jobs.length;
+
+        // Compare the job ID
+        if (jobs[index].getJobID().equalsIgnoreCase(jobID.trim())) {
+            return jobs[index];
+        }
+    }
+
+    // Return null if no matching job is found
+        return null;
+    }
 }
