@@ -51,6 +51,15 @@ public class printJob {
         return copies >= 20;
     }
     
+    // Returns the order status based on the number of copies
+    public String getOrderStatus() {
+        if (isBulkOrder()) {
+            return "Bulk Order";
+        } else {
+            return "Regular Order";
+        }
+    }
+    
     // Checks whether the print job has valid copy information
     public boolean hasValidCopies() {
         return copies > 0;
