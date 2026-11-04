@@ -86,6 +86,11 @@ public class PrintQueue {
         return count == jobs.length;
     }
     
+    // Returns the remaining available spaces in the queue
+    public int getAvailableCapacity() {
+        return jobs.length - count;
+    }
+    
     // Returns all waiting print jobs in FIFO order
     public printJob[] getWaitingJobs() {
 
