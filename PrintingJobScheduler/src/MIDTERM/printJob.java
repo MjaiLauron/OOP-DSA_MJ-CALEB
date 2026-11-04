@@ -126,11 +126,11 @@ public class printJob {
     // Returns the category of the print job
     public String getJobCategory() {
         if (getPrintType().equals("Document")) {
-            return "Paper Document Printing";
+            return "General Printing";
         } else if (getPrintType().equals("Photo")) {
             return "Photo Printing";
         } else {
-            return "General Printing";
+            return "Other Printing";
         }
     }
     // Returns the print job information as a readable String
