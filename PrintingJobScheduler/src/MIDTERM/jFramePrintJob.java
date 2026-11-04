@@ -59,6 +59,7 @@ private PrintQueue printQueue = new PrintQueue();
         btnDisplayJobs = new javax.swing.JButton();
         btnProcessNext = new javax.swing.JButton();
         lblStatus = new javax.swing.JLabel();
+        btnViewNext = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Printing Job Scheduler");
@@ -106,22 +107,23 @@ private PrintQueue printQueue = new PrintQueue();
                             .addComponent(lblJobID, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addGroup(pnlJobInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtJobID)
-                            .addComponent(cmbPrintType, 0, 227, Short.MAX_VALUE))))
+                            .addComponent(cmbPrintType, 0, 227, Short.MAX_VALUE)
+                            .addComponent(txtJobID))))
                 .addGroup(pnlJobInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlJobInformationLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnClearFields, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(99, 99, 99))
                     .addGroup(pnlJobInformationLayout.createSequentialGroup()
                         .addGap(103, 103, 103)
                         .addGroup(pnlJobInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblCustomerName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblCopies, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
-                        .addGroup(pnlJobInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCustomerName)
-                            .addComponent(txtCopies)))
-                    .addGroup(pnlJobInformationLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnClearFields, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(99, 99, 99))
+                        .addGroup(pnlJobInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtCustomerName, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                            .addComponent(txtCopies))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         pnlJobInformationLayout.setVerticalGroup(
             pnlJobInformationLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,6 +224,14 @@ private PrintQueue printQueue = new PrintQueue();
 
         lblStatus.setText("Status: Ready to accept print jobs.");
 
+        btnViewNext.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnViewNext.setText("VIEW NEXT JOB");
+        btnViewNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewNextActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -234,11 +244,14 @@ private PrintQueue printQueue = new PrintQueue();
                     .addComponent(pnlWaitingJobs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlSearchJob, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnDisplayJobs, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                        .addComponent(btnProcessNext, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnDisplayJobs, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36)
+                                .addComponent(btnProcessNext, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(btnViewNext, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -256,7 +269,8 @@ private PrintQueue printQueue = new PrintQueue();
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDisplayJobs)
-                    .addComponent(btnProcessNext))
+                    .addComponent(btnProcessNext)
+                    .addComponent(btnViewNext))
                 .addGap(18, 18, 18)
                 .addComponent(lblStatus)
                 .addContainerGap(18, Short.MAX_VALUE))
@@ -328,6 +342,37 @@ private PrintQueue printQueue = new PrintQueue();
     lblStatus.setText("Status: Waiting print jobs displayed!");
 
     }//GEN-LAST:event_btnDisplayJobsActionPerformed
+
+    private void btnViewNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewNextActionPerformed
+        // TODO add your handling code here:
+        // Get the next waiting job without removing it
+printJob nextJob = printQueue.peekNextJob();
+
+// Check if the queue is empty
+if (nextJob == null) {
+    lblStatus.setText("No waiting print jobs.");
+
+    javax.swing.JOptionPane.showMessageDialog(
+            this,
+            "The print queue is empty!",
+            "No Jobs Available",
+            javax.swing.JOptionPane.INFORMATION_MESSAGE
+    );
+} else {
+    lblStatus.setText("Next job: " + nextJob.getJobID());
+
+    javax.swing.JOptionPane.showMessageDialog(
+            this,
+            "Next Print Job:\n"
+            + "Job ID: " + nextJob.getJobID() + "\n"
+            + "Customer: " + nextJob.getCustomerName() + "\n"
+            + "Print Type: " + nextJob.getPrintType() + "\n"
+            + "Copies: " + nextJob.getCopies(),
+            "Next Waiting Job",
+            javax.swing.JOptionPane.INFORMATION_MESSAGE
+    );
+}
+    }//GEN-LAST:event_btnViewNextActionPerformed
         // Displays all waiting print jobs in the JTable
     private void displayWaitingJobs() {
 
@@ -385,6 +430,7 @@ private PrintQueue printQueue = new PrintQueue();
     private javax.swing.JButton btnDisplayJobs;
     private javax.swing.JButton btnProcessNext;
     private javax.swing.JButton btnSearchJob;
+    private javax.swing.JButton btnViewNext;
     private javax.swing.JComboBox<String> cmbPrintType;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;

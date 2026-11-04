@@ -71,6 +71,18 @@ public class PrintQueue {
         return processedJob;
     }
     
+    // Views the next waiting print job without removing it
+    public printJob peekNextJob() {
+
+    // Check if the queue is empty
+    if (count == 0) {
+        return null;
+    }
+
+    // Return the job at the front without removing it
+    return jobs[front];
+}
+    
     // Returns the number of waiting print jobs
     public int getJobCount() {
         return count;
