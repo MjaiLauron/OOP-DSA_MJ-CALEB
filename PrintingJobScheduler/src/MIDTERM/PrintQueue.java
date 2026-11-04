@@ -141,6 +141,13 @@ public class PrintQueue {
     // Return null if no matching job is found
         return null;
     }
+    
+    // Checks if a print job with the given Job ID exists
+    public boolean containsJob(String jobID) {
+
+    // Reuse the existing search method
+    return searchJob(jobID) != null;
+}
     // Removes all waiting print jobs from the queue
     public void clearQueue() {
 

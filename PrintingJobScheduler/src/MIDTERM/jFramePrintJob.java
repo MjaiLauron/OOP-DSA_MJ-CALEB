@@ -298,9 +298,28 @@ private PrintQueue printQueue = new PrintQueue();
         job = new PhotoPrintJob(jobID, customerName, copies);
     }
 
-    // Add the job to the circular queue
-        printQueue.addJob(job);
+    // Check if the Job ID already exists
+    if (printQueue.containsJob(jobID)) {
+    javax.swing.JOptionPane.showMessageDialog(
+            this,
+            "Job ID already exists!",
+            "Duplicate Job ID",
+            javax.swing.JOptionPane.ERROR_MESSAGE
+        );
+    return;
+    }
 
+    // Add the job to the circular queue
+    if (!printQueue.addJob(job)) {
+    javax.swing.JOptionPane.showMessageDialog(
+            this,
+            "Unable to add job. The queue may be full.",
+            "Queue Error",
+            javax.swing.JOptionPane.ERROR_MESSAGE
+        );
+        return;
+    }
+    
     // Refresh the JTable
         displayWaitingJobs();
 
