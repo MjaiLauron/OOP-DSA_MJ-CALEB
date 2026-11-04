@@ -41,9 +41,28 @@ public class printJob {
     public String getCustomerName() {
         return customerName;
     }
-
+    
     public int getCopies() {
         return copies;
+    }
+
+    // Checks if the print job is a bulk order
+    public boolean isBulkOrder() {
+        return copies >= 20;
+    }
+    
+    // Returns the order status based on the number of copies
+    public String getOrderStatus() {
+        if (isBulkOrder()) {
+            return "Bulk Order";
+        } else {
+            return "Regular Order";
+        }
+    }
+    
+    // Checks whether the print job has valid copy information
+    public boolean hasValidCopies() {
+        return copies > 0;
     }
     
     // Default print type
@@ -78,6 +97,12 @@ public class printJob {
     this.copies = copies;
     }
     
+    // Updates the number of copies and returns the updated cost
+    public double updateCopiesAndGetCost(int newCopies) {
+        setCopies(newCopies);
+        return getPrintingCost();
+    }
+    
     // Returns a complete description of the print job
     public String getJobDescription() {
         return "Job ID: " + jobID
@@ -85,14 +110,34 @@ public class printJob {
             + "\nPrint Type: " + getPrintType()
             + "\nCopies: " + copies;
         }
+    
+    // Returns a summary of the printing cost
+    public String getPrintingCostSummary() {
+        return "Print Type: " + getPrintType()
+            + "\nNumber of Copies: " + getCopies()
+            + "\nTotal Cost: ₱" + String.format("%.2f", getPrintingCost());
+        }
+    
+    // Returns the printing cost (overridden by child classes)
+    public double getPrintingCost() {
+        return 0.00;
+    }
+    
     // Returns the category of the print job
     public String getJobCategory() {
         if (getPrintType().equals("Document")) {
-            return "Paper Document Printing";
+            return "General Printing";
         } else if (getPrintType().equals("Photo")) {
             return "Photo Printing";
         } else {
-            return "General Printing";
+            return "Other Printing";
         }
     }
+    // Returns the print job information as a readable String
+    @Override
+    public String toString() {
+        return getJobDescription()
+            + "\n" + getPrintingCostSummary();
+    }
+
 }
