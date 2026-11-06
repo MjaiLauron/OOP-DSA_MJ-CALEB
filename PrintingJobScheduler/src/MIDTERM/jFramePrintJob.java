@@ -60,6 +60,7 @@ private PrintQueue printQueue = new PrintQueue();
         btnProcessNext = new javax.swing.JButton();
         lblStatus = new javax.swing.JLabel();
         btnViewNext = new javax.swing.JButton();
+        btnClearQueue = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Printing Job Scheduler");
@@ -247,6 +248,14 @@ private PrintQueue printQueue = new PrintQueue();
             }
         });
 
+        btnClearQueue.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnClearQueue.setText("CLEAR QUEUE");
+        btnClearQueue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearQueueActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -259,21 +268,22 @@ private PrintQueue printQueue = new PrintQueue();
                     .addComponent(pnlWaitingJobs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlSearchJob, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnDisplayJobs, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(36, 36, 36)
-                                .addComponent(btnProcessNext, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(btnViewNext, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnDisplayJobs, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnProcessNext, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnViewNext, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnClearQueue, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(pnlJobInformation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -285,10 +295,11 @@ private PrintQueue printQueue = new PrintQueue();
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDisplayJobs)
                     .addComponent(btnProcessNext)
+                    .addComponent(btnClearQueue)
                     .addComponent(btnViewNext))
-                .addGap(18, 18, 18)
+                .addGap(12, 12, 12)
                 .addComponent(lblStatus)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -505,6 +516,48 @@ if (nextJob == null) {
     // Update the status message
     lblStatus.setText("Input fields have been cleared.");
     }//GEN-LAST:event_btnClearFieldsActionPerformed
+
+    private void btnClearQueueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearQueueActionPerformed
+        // TODO add your handling code here:
+        // Check if the queue is already empty
+    if (printQueue.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "There are no waiting print jobs to clear.",
+                "Empty Queue",
+                javax.swing.JOptionPane.INFORMATION_MESSAGE
+        );
+
+        lblStatus.setText("The waiting queue is already empty.");
+        return;
+    }
+
+    // Ask for confirmation before clearing the queue
+    int choice = javax.swing.JOptionPane.showConfirmDialog(
+            this,
+            "Are you sure you want to remove all waiting print jobs?",
+            "Confirm Clear Queue",
+            javax.swing.JOptionPane.YES_NO_OPTION,
+            javax.swing.JOptionPane.WARNING_MESSAGE
+    );
+
+    // Clear the queue if the user selects YES
+    if (choice == javax.swing.JOptionPane.YES_OPTION) {
+        printQueue.clearQueue();
+
+        // Refresh the waiting jobs table
+        displayWaitingJobs();
+
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "All waiting print jobs have been cleared.",
+                "Queue Cleared",
+                javax.swing.JOptionPane.INFORMATION_MESSAGE
+        );
+
+        lblStatus.setText("All waiting print jobs have been cleared.");
+        }
+    }//GEN-LAST:event_btnClearQueueActionPerformed
         // Displays all waiting print jobs in the JTable
     private void displayWaitingJobs() {
 
@@ -559,6 +612,7 @@ if (nextJob == null) {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddJob;
     private javax.swing.JButton btnClearFields;
+    private javax.swing.JButton btnClearQueue;
     private javax.swing.JButton btnDisplayJobs;
     private javax.swing.JButton btnProcessNext;
     private javax.swing.JButton btnSearchJob;
