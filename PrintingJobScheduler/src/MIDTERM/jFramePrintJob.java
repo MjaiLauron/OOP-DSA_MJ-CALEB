@@ -186,6 +186,11 @@ private PrintQueue printQueue = new PrintQueue();
 
         btnSearchJob.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnSearchJob.setText("\tSEARCH");
+        btnSearchJob.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchJobActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlSearchJobLayout = new javax.swing.GroupLayout(pnlSearchJob);
         pnlSearchJob.setLayout(pnlSearchJobLayout);
@@ -392,6 +397,51 @@ if (nextJob == null) {
     );
 }
     }//GEN-LAST:event_btnViewNextActionPerformed
+
+    private void btnSearchJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchJobActionPerformed
+        // TODO add your handling code here:
+        // Get the Job ID entered by the user
+    String jobID = txtSearchJobID.getText().trim();
+
+    // Check if the search field is empty
+    if (jobID.isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Please enter a Job ID to search.",
+                "Empty Search",
+                javax.swing.JOptionPane.WARNING_MESSAGE
+        );
+        return;
+    }
+
+    // Search for the job in the waiting queue
+    printJob foundJob = printQueue.searchJob(jobID);
+
+    // Display the search result
+    if (foundJob != null) {
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Print Job Found!\n\n"
+                + "Job ID: " + foundJob.getJobID() + "\n"
+                + "Customer Name: " + foundJob.getCustomerName() + "\n"
+                + "Print Type: " + foundJob.getPrintType() + "\n"
+                + "Copies: " + foundJob.getCopies(),
+                "Search Result",
+                javax.swing.JOptionPane.INFORMATION_MESSAGE
+        );
+
+        lblStatus.setText("Job " + jobID + " found in the waiting queue.");
+    } else {
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "No print job found with ID: " + jobID,
+                "Job Not Found",
+                javax.swing.JOptionPane.ERROR_MESSAGE
+        );
+
+        lblStatus.setText("Job " + jobID + " was not found.");
+        }
+    }//GEN-LAST:event_btnSearchJobActionPerformed
         // Displays all waiting print jobs in the JTable
     private void displayWaitingJobs() {
 
