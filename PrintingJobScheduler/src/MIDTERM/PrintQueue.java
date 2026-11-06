@@ -71,6 +71,18 @@ public class PrintQueue {
         return processedJob;
     }
     
+    // Views the next waiting print job without removing it
+    public printJob peekNextJob() {
+
+    // Check if the queue is empty
+    if (count == 0) {
+        return null;
+    }
+
+    // Return the job at the front without removing it
+    return jobs[front];
+}
+    
     // Returns the number of waiting print jobs
     public int getJobCount() {
         return count;
@@ -84,6 +96,11 @@ public class PrintQueue {
     // Checks if the queue has reached its maximum capacity
     public boolean isFull() {
         return count == jobs.length;
+    }
+    
+    // Returns the remaining available spaces in the queue
+    public int getAvailableCapacity() {
+        return jobs.length - count;
     }
     
     // Returns all waiting print jobs in FIFO order
@@ -124,6 +141,13 @@ public class PrintQueue {
     // Return null if no matching job is found
         return null;
     }
+    
+    // Checks if a print job with the given Job ID exists
+    public boolean containsJob(String jobID) {
+
+    // Reuse the existing search method
+    return searchJob(jobID) != null;
+}
     // Removes all waiting print jobs from the queue
     public void clearQueue() {
 
