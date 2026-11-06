@@ -424,13 +424,33 @@ private PrintQueue printQueue = new PrintQueue();
     }//GEN-LAST:event_btnAddJobActionPerformed
 
     private void btnDisplayJobsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisplayJobsActionPerformed
-    // TODO add your handling code here:
     // Display all waiting print jobs in the JTable
     displayWaitingJobs();
 
     // Get queue statistics
     int totalJobs = printQueue.getJobCount();
     int availableCapacity = printQueue.getAvailableCapacity();
+
+    // Initialize job counters
+    int documentJobs = 0;
+    int photoJobs = 0;
+    int totalCopies = 0;
+
+    // Get all waiting jobs
+    printJob[] waitingJobs = printQueue.getWaitingJobs();
+
+    // Count job types and total copies
+    for (printJob job : waitingJobs) {
+        if (job != null) {
+            if (job.getPrintType().equals("Document")) {
+                documentJobs++;
+            } else if (job.getPrintType().equals("Photo")) {
+                photoJobs++;
+            }
+
+            totalCopies += job.getCopies();
+        }
+    }
 
     // Determine queue status
     String queueStatus;
@@ -443,19 +463,23 @@ private PrintQueue printQueue = new PrintQueue();
         queueStatus = "Available";
     }
 
-    // Display queue statistics
+    // Display the detailed queue summary
     javax.swing.JOptionPane.showMessageDialog(
             this,
-            "QUEUE STATISTICS\n\n"
+            "QUEUE SUMMARY REPORT\n\n"
             + "Total Waiting Jobs: " + totalJobs + "\n"
+            + "Document Jobs: " + documentJobs + "\n"
+            + "Photo Jobs: " + photoJobs + "\n"
+            + "Total Copies: " + totalCopies + "\n"
             + "Available Capacity: " + availableCapacity + "\n"
             + "Queue Status: " + queueStatus,
-            "Waiting Queue Information",
+            "Queue Summary Report",
             javax.swing.JOptionPane.INFORMATION_MESSAGE
     );
 
     // Update status message
-    lblStatus.setText("Status: Waiting jobs displayed! Total: " + totalJobs);
+    lblStatus.setText("Queue Summary Report displayed! Total jobs: " + totalJobs);
+
     }//GEN-LAST:event_btnDisplayJobsActionPerformed
 
     private void btnViewNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewNextActionPerformed
