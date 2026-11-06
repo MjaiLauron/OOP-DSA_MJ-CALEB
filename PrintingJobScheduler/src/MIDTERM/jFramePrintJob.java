@@ -268,16 +268,16 @@ private PrintQueue printQueue = new PrintQueue();
                     .addComponent(pnlWaitingJobs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlSearchJob, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btnDisplayJobs, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnProcessNext, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnViewNext, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnClearQueue, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnClearQueue, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -297,7 +297,7 @@ private PrintQueue printQueue = new PrintQueue();
                     .addComponent(btnProcessNext)
                     .addComponent(btnClearQueue)
                     .addComponent(btnViewNext))
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblStatus)
                 .addContainerGap())
         );
@@ -379,13 +379,38 @@ private PrintQueue printQueue = new PrintQueue();
     }//GEN-LAST:event_btnAddJobActionPerformed
 
     private void btnDisplayJobsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisplayJobsActionPerformed
-        // TODO add your handling code here:
+    // TODO add your handling code here:
     // Display all waiting print jobs in the JTable
     displayWaitingJobs();
 
-    // Update status message
-    lblStatus.setText("Status: Waiting print jobs displayed!");
+    // Get queue statistics
+    int totalJobs = printQueue.getJobCount();
+    int availableCapacity = printQueue.getAvailableCapacity();
 
+    // Determine queue status
+    String queueStatus;
+
+    if (printQueue.isEmpty()) {
+        queueStatus = "Empty";
+    } else if (printQueue.isFull()) {
+        queueStatus = "Full";
+    } else {
+        queueStatus = "Available";
+    }
+
+    // Display queue statistics
+    javax.swing.JOptionPane.showMessageDialog(
+            this,
+            "QUEUE STATISTICS\n\n"
+            + "Total Waiting Jobs: " + totalJobs + "\n"
+            + "Available Capacity: " + availableCapacity + "\n"
+            + "Queue Status: " + queueStatus,
+            "Waiting Queue Information",
+            javax.swing.JOptionPane.INFORMATION_MESSAGE
+    );
+
+    // Update status message
+    lblStatus.setText("Status: Waiting jobs displayed! Total: " + totalJobs);
     }//GEN-LAST:event_btnDisplayJobsActionPerformed
 
     private void btnViewNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewNextActionPerformed
