@@ -226,6 +226,11 @@ private PrintQueue printQueue = new PrintQueue();
 
         btnProcessNext.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnProcessNext.setText("PROCESS NEXT JOB");
+        btnProcessNext.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProcessNextActionPerformed(evt);
+            }
+        });
 
         lblStatus.setText("Status: Ready to accept print jobs.");
 
@@ -442,6 +447,42 @@ if (nextJob == null) {
         lblStatus.setText("Job " + jobID + " was not found.");
         }
     }//GEN-LAST:event_btnSearchJobActionPerformed
+
+    private void btnProcessNextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProcessNextActionPerformed
+        // TODO add your handling code here:
+        // Process the next print job in the queue
+    printJob processedJob = printQueue.processNextJob();
+
+    // Check if the queue is empty
+    if (processedJob == null) {
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "There are no waiting print jobs to process.",
+                "Queue Empty",
+                javax.swing.JOptionPane.WARNING_MESSAGE
+        );
+
+        lblStatus.setText("No waiting print jobs available.");
+        return;
+    }
+
+    // Update the waiting jobs table
+    displayWaitingJobs();
+
+    // Display the processed job details
+    javax.swing.JOptionPane.showMessageDialog(
+            this,
+            "Print Job Successfully Processed!\n\n"
+            + "Job ID: " + processedJob.getJobID() + "\n"
+            + "Customer Name: " + processedJob.getCustomerName() + "\n"
+            + "Print Type: " + processedJob.getPrintType() + "\n"
+            + "Copies: " + processedJob.getCopies(),
+            "Job Processed",
+            javax.swing.JOptionPane.INFORMATION_MESSAGE
+    );
+
+    lblStatus.setText("Successfully processed Job ID: " + processedJob.getJobID());
+    }//GEN-LAST:event_btnProcessNextActionPerformed
         // Displays all waiting print jobs in the JTable
     private void displayWaitingJobs() {
 
