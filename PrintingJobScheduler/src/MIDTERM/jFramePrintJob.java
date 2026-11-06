@@ -92,6 +92,11 @@ private PrintQueue printQueue = new PrintQueue();
 
         btnClearFields.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         btnClearFields.setText("Clear Fields");
+        btnClearFields.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnClearFieldsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlJobInformationLayout = new javax.swing.GroupLayout(pnlJobInformation);
         pnlJobInformation.setLayout(pnlJobInformationLayout);
@@ -483,6 +488,23 @@ if (nextJob == null) {
 
     lblStatus.setText("Successfully processed Job ID: " + processedJob.getJobID());
     }//GEN-LAST:event_btnProcessNextActionPerformed
+
+    private void btnClearFieldsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearFieldsActionPerformed
+        // TODO add your handling code here:
+        // Clear the input fields
+    txtJobID.setText("");
+    txtCustomerName.setText("");
+    txtCopies.setText("");
+
+    // Reset the print type selection
+    cmbPrintType.setSelectedIndex(0);
+
+    // Return the cursor to the Job ID field
+    txtJobID.requestFocus();
+
+    // Update the status message
+    lblStatus.setText("Input fields have been cleared.");
+    }//GEN-LAST:event_btnClearFieldsActionPerformed
         // Displays all waiting print jobs in the JTable
     private void displayWaitingJobs() {
 
