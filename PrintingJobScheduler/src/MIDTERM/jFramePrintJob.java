@@ -306,74 +306,119 @@ private PrintQueue printQueue = new PrintQueue();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddJobActionPerformed
-        // TODO add your handling code here:
-    
-    try {
-    // Get the values from the input fields
-    String jobID = txtJobID.getText().trim();
-    String customerName = txtCustomerName.getText().trim();
-    String printType = cmbPrintType.getSelectedItem().toString();
-    int copies = Integer.parseInt(txtCopies.getText().trim());
+        try {
+        // Get the values from the input fields
+        String jobID = txtJobID.getText().trim();
+        String customerName = txtCustomerName.getText().trim();
+        String copiesText = txtCopies.getText().trim();
+        String printType = cmbPrintType.getSelectedItem().toString();
 
-    // Create the appropriate print job
-    printJob job;
+        // Validate Job ID
+        if (jobID.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Please enter a Job ID.",
+                    "Missing Job ID",
+                    javax.swing.JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
 
-    if (printType.equals("Document")) {
-        job = new DocumentPrintJob(jobID, customerName, copies);
-    } else {
-        job = new PhotoPrintJob(jobID, customerName, copies);
-    }
+        // Validate Customer Name
+        if (customerName.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Please enter the customer's name.",
+                    "Missing Customer Name",
+                    javax.swing.JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
 
-    // Check if the Job ID already exists
-    if (printQueue.containsJob(jobID)) {
-    javax.swing.JOptionPane.showMessageDialog(
-            this,
-            "Job ID already exists!",
-            "Duplicate Job ID",
-            javax.swing.JOptionPane.ERROR_MESSAGE
-        );
-    return;
-    }
+        // Validate Copies field
+        if (copiesText.isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Please enter the number of copies.",
+                    "Missing Copies",
+                    javax.swing.JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
 
-    // Add the job to the circular queue
-    if (!printQueue.addJob(job)) {
-    javax.swing.JOptionPane.showMessageDialog(
-            this,
-            "Unable to add job. The queue may be full.",
-            "Queue Error",
-            javax.swing.JOptionPane.ERROR_MESSAGE
-        );
-        return;
-    }
-    
-    // Refresh the JTable
+        // Convert copies into an integer
+        int copies = Integer.parseInt(copiesText);
+
+        // Validate positive copies
+        if (copies <= 0) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "The number of copies must be greater than zero.",
+                    "Invalid Copies",
+                    javax.swing.JOptionPane.WARNING_MESSAGE
+            );
+            return;
+        }
+
+        // Check if the Job ID already exists
+        if (printQueue.containsJob(jobID)) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Job ID already exists!",
+                    "Duplicate Job ID",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        // Create the appropriate print job
+        printJob job;
+
+        if (printType.equals("Document")) {
+            job = new DocumentPrintJob(jobID, customerName, copies);
+        } else {
+            job = new PhotoPrintJob(jobID, customerName, copies);
+        }
+
+        // Add the job to the circular queue
+        if (!printQueue.addJob(job)) {
+            javax.swing.JOptionPane.showMessageDialog(
+                    this,
+                    "Unable to add job. The queue may be full.",
+                    "Queue Error",
+                    javax.swing.JOptionPane.ERROR_MESSAGE
+            );
+            return;
+        }
+
+        // Refresh the JTable
         displayWaitingJobs();
 
-    // Update status with available queue spaces
+        // Update status
         lblStatus.setText("Print job added! Available spaces: "
-            + printQueue.getAvailableCapacity());
+                + printQueue.getAvailableCapacity());
 
-    javax.swing.JOptionPane.showMessageDialog(
-        this,
-        "Print job added successfully!",
-        "Success",
-        javax.swing.JOptionPane.INFORMATION_MESSAGE
-    );
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Print job added successfully!",
+                "Success",
+                javax.swing.JOptionPane.INFORMATION_MESSAGE
+        );
 
     } catch (NumberFormatException e) {
-    javax.swing.JOptionPane.showMessageDialog(
-            this,
-            "Please enter a valid number of copies.",
-            "Invalid Input",
-            javax.swing.JOptionPane.ERROR_MESSAGE
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                "Please enter a valid whole number for copies.",
+                "Invalid Input",
+                javax.swing.JOptionPane.ERROR_MESSAGE
         );
 
     } catch (IllegalArgumentException | IllegalStateException e) {
-    javax.swing.JOptionPane.showMessageDialog(
-            this,
-            e.getMessage(),
-            "Unable to Add Job",
-            javax.swing.JOptionPane.ERROR_MESSAGE
+        javax.swing.JOptionPane.showMessageDialog(
+                this,
+                e.getMessage(),
+                "Unable to Add Job",
+                javax.swing.JOptionPane.ERROR_MESSAGE
         );
       }
     }//GEN-LAST:event_btnAddJobActionPerformed
